@@ -1,12 +1,12 @@
-import { MainContainer, Heading, Container, Info, Button } from "./styles"
+import { MainContainer, Heading, Info, Button, Column } from "./styles"
 
-export default function Success() {
+export default function Receipt() {
     return (
         <MainContainer>
             <Heading>
-                <h2>Pedido feito <br />com sucesso!</h2>
+                Pedido feito <br />com sucesso!
             </Heading>
-            <Container>
+            <Column>
                 <Info>
                     <h3>Filme e sessão</h3>
                     <p>Filme</p>
@@ -21,7 +21,7 @@ export default function Success() {
                     <p>Nome</p>
                     <p>CPF</p>
                 </Info>
-            </Container>
+            </Column>
             <Button>Voltar para Home</Button>
         </MainContainer>
     )

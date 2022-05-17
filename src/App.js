@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home"
-import Sessions from "./pages/sessions/Sessions"
-import Seats from "./pages/seats/Seats"
-import Success from "./pages/success/Success"
 import Header from "./components/header/Header";
+import Home from "./pages/Home"
+import Sessions from "./pages/Sessions"
+import Seats from "./pages/Seats"
+import Success from "./pages/Success"
 
 export default function App() {
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/sucesso" element={<Home />} />
                 <Route path="/sessoes" element={<Sessions />} />
                 <Route path="/assentos" element={<Seats />} />
-                <Route path="/sucesso" element={<Success />} />
+                <Route path="/" element={<Success />} />
             </Routes>
         </BrowserRouter>
     )

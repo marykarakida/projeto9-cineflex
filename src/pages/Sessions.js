@@ -1,5 +1,5 @@
-import Footer from "../../components/footer/Footer";
-import { MainContainer, Heading, Container, ButtonsContainer, Button, Poster} from "./styles"
+import Footer from "../components/footer/Footer";
+import ShowTimeList from "../components/show_time_list/ShowTimeList";
 
 const movie = {"id":1,"title":"Zack Snyder Justice League","posterURL":"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg","overview":"Determined to ensure Superman ultimate sacrifice was not in vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to protect the world from an approaching threat of catastrophic proportions.","releaseDate":"2021-03-18T00:00:00.000Z",
 
@@ -10,28 +10,9 @@ const movie = {"id":1,"title":"Zack Snyder Justice League","posterURL":"https://
 
 export default function Sessions() {
     return (
-        <MainContainer>
-            <Heading>
-                <h2>Selecione o horário</h2>
-            </Heading>
-            <Container>
-                {movie.days.map(day => 
-                    <Container key={day.id}>
-                        <h3>{day.weekday} - {day.date}</h3>
-                        <ButtonsContainer>
-                            {day.showtimes.map(time => 
-                                <Button>{time.name}</Button>
-                            )}
-                        </ButtonsContainer>
-                    </Container>
-                )}
-            </Container>
-            <Footer>
-                <Poster>
-                    <img src={movie.posterURL} alt={movie.title} />
-                </Poster>
-                <h2>{movie.title}</h2>
-            </Footer>
-        </MainContainer>
+        <>
+            <ShowTimeList movie={movie} />
+            <Footer movie={movie} />
+        </>
     )
 }

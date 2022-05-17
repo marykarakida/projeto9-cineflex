@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Container } from "../../assets/styles/globalStyles";
 
 export const MainContainer = styled.div `
     display: flex;
@@ -7,22 +8,18 @@ export const MainContainer = styled.div `
     margin: 68px 24px;
 `
 
-export const Heading = styled.div `
+export const Heading = styled.h2 `
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 30px 0 50px;
-
-    h2 {
-        font-weight: 700;
-        text-align: center;
-        color: #247A6B;
-    }
+    font-weight: 700;
+    text-align: center;
+    color: #247A6B;
 `
 
-export const Container = styled.div `
-    width: 100%;
-    max-width: 450px;
+export const Column = styled(Container) `
+    flex-direction: column;
 `
 
 export const Info = styled.div `

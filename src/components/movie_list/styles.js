@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Container } from "../../assets/styles/globalStyles.js"
 
 export const MainContainer = styled.div `
     display: flex;
@@ -7,19 +8,20 @@ export const MainContainer = styled.div `
     margin: 68px 24px;
 `
 
-export const Heading = styled.div `
+export const Heading = styled.h2 `
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 30px 0;
 `
 
-export const ContainerWrap = styled.div `
-    display: flex;
+export const List = styled(Container) `
     justify-content: space-between;
     flex-wrap: wrap;
-    width: 100%;
-    max-width: 450px;
+
+    @media (max-width: 310px) {
+        justify-content: center;
+    }
 `
 
 export const Poster = styled.div `

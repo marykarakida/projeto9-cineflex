@@ -1,28 +1,31 @@
 import styled from "styled-components";
+import { Container } from "../../assets/styles/globalStyles";
 
 export const MainContainer = styled.div `
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 68px 24px;
+    margin: 68px 24px 118px;
 `
 
-export const Heading = styled.div `
+export const Heading = styled.h2 `
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 30px 0;
 `
 
-export const ButtonsContainer = styled.div `
-    display: flex;
-    gap: 8px;
-    padding: 22px 0;
-    width: 100%;
+export const List = styled(Container) `
+    flex-direction: column;
 `
 
-export const Container = styled.div `
-    width: 100%;
+export const Day = styled(Container) `
+    flex-direction: column;
+`
+
+export const Buttons = styled(Container) `
+    gap: 8px;
+    padding: 22px 0;
 `
 
 export const Button = styled.div `
@@ -37,14 +40,4 @@ export const Button = styled.div `
     line-height: 21px;
     letter-spacing: 0.02em;
     color: #FFFFFF;
-`
-
-export const Poster = styled.div `
-    margin-right: 14px;
-    border-radius: 2px;
-    padding: 8px;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    width: 64px;
-    height: 89px;
-    background-color: #FFFFFF;
 `

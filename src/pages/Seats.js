@@ -1,6 +1,7 @@
 // import { useState } from "react";
-import Footer from "../../components/footer/Footer";
-import { MainContainer, Heading, Container, Subtitle, Costoumer, Seat, Button, Poster, Movie } from "./styles";
+import SeatsList from "../components/seats_list/SeatsList";
+import Forms from "../components/forms/Forms";
+import Footer from "../components/footer/Footer";
 
 const seats = {
     "id": 1, "name": "15:00", "day": { "id": 24102021, "weekday": "Domingo", "date": "24/10/2021" }, "movie": { "id": 1, "title": "Zack Snyder Justice League", "posterURL": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg", "overview": "Determined to ensure Superman ultimate sacrifice was not in vain, Bruce Wayne aligns forces with Diana Prince with plans to recruit a team of metahumans to protect the world from an approaching threat of catastrophic proportions.", "releaseDate": "2021-03-18T00:00:00.000Z" },
@@ -18,49 +19,10 @@ export default function Seats() {
     // onClick={() => selectSeat(seat.id)}
 
     return (
-        <MainContainer>
-            <Heading>
-                <h2>Selecione o(s) assento(s)</h2>
-            </Heading>
-            <Container>
-                {seats.seats.map(seat =>
-                    <Seat key={seat.id} isAvailable={seat.isAvailable}>{seat.name}</Seat>
-                )}
-            </Container>
-            <Subtitle>
-                <div>
-                    <Seat isAvailable={false}></Seat>
-                    <p>Selecionado</p>
-                </div>
-                <div>
-                    <Seat isAvailable={true}></Seat>
-                    <p>Disponível</p>
-                </div>
-                <div>
-                    <Seat isAvailable={false}></Seat>
-                    <p>Indisponível</p>
-                </div>
-            </Subtitle>
-            <Costoumer>
-                <div>
-                    <h3>Nome do comprador:</h3>
-                    <input placeholder="Digite seu nome..."></input>
-                </div>
-                <div>
-                    <h3>CPF do comprador:</h3>
-                    <input placeholder="Digite seu CPF..."></input>
-                </div>
-            </Costoumer>
-            <Button>Reservar assento(s)</Button>
-            <Footer>
-                <Poster>
-                    <img src={seats.movie.posterURL} alt={seats.movie.title} />
-                </Poster>
-                <Movie>
-                    <h2>{seats.movie.title}</h2>
-                    <h2>{seats.movie.title}</h2>
-                </Movie>
-            </Footer>
-        </MainContainer>
+        <>
+            <SeatsList seats={seats} />
+            <Forms />
+            <Footer movie={seats.movie} day={seats.day} />
+        </>
     )
 }
