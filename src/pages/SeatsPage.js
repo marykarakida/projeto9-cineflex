@@ -14,8 +14,8 @@ export default function Seats() {
     const [session, setSession] = useState("");
     const [customer, setCustomer] = useState("");
     const [CPF, setCPF] = useState("");
-    const [isRequestSent, setIsRequestSent] = useState(false)
-    
+
+    const selectedSeats = seats.filter(seat => seat.isSelected).map(seat => seat.id);
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
@@ -47,27 +47,29 @@ export default function Seats() {
     }
 
     function buySeats() {
-        if (!customer || !CPF) {
-            alert("Preencha todos os campos para poder comprar os assentos!");
-            return;
-        }
-
         const request = {
-            ids: seats.filter(seat => seat.isSelected).map(seat => seat.id),
+            ids: selectedSeats,
             name: customer,
             cpf: CPF
         }
 
+        if (!customer || !CPF || selectedSeats.length === 0) {
+            alert("Preencha todos os campos para poder comprar os assentos!");
+            return;
+        }
+
         console.log(request)
 
-        const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request);
-        promise.then(() => setIsRequestSent(true));
+        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request);
     }
 
     return (
         <>
             <SeatsList seats={seats} updateSeats={updateSeats} />
-            <Forms customer={customer} CPF={CPF} setCustomer={setCustomer} setCPF={setCPF} buySeats={buySeats} isRequestSent={isRequestSent} />
+            {(!customer || !CPF || selectedSeats.length === 0)
+                ? <Forms customer={customer} CPF={CPF} setCustomer={setCustomer} setCPF={setCPF} />
+                : <Forms customer={customer} CPF={CPF} setCustomer={setCustomer} setCPF={setCPF} buySeats={buySeats} />
+            }
             <Footer movie={movie} day={day} session={session} />
         </>
     )

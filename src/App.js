@@ -18,5 +18,3 @@ export default function App() {
         </BrowserRouter>
     )
 }
-
-// COLOCAR ID DO FILME E DA SESSAO DE VOLTA DEPOIS

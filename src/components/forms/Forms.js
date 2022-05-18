@@ -1,8 +1,8 @@
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Column, Costoumer, Button, MainContainer } from "./styles";
 
 export default function Forms(props) {
-    const { customer, CPF, setCustomer, setCPF, buySeats, isRequestSent } = props;
+    const { customer, CPF, setCustomer, setCPF, buySeats } = props;
 
     return (
         <MainContainer>
@@ -16,7 +16,10 @@ export default function Forms(props) {
                     <input placeholder="Digite seu CPF..." value={CPF} onChange={event => setCPF(event.target.value)} ></input>
                 </Column>
             </Costoumer>
-            <Button onClick={buySeats}>Reservar assento(s)</Button>
+                {buySeats
+                    ? <Link to="/sucesso" style={{ textDecoration: 'none' }} ><Button onClick={buySeats} clickable >Reservar assento(s)</Button></Link>
+                    : <Button>Reservar assento(s)</Button>
+                }
         </MainContainer>
     )
 }
