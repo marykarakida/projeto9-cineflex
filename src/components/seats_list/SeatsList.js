@@ -1,7 +1,7 @@
 import { MainContainer, Heading, Column, Wrap, Subtitle, Seat } from "./styles.js";
 
 export default function SeatsList(props) {
-    const { seats } = props;
+    const { seats, updateSeats } = props;
 
     return (
         <MainContainer>
@@ -9,20 +9,20 @@ export default function SeatsList(props) {
                 Selecione o(s) assento(s)
             </Heading>
             <Wrap>
-                {seats.seats.map(seat =>
-                    <Seat key={seat.id} isAvailable={seat.isAvailable}>{seat.name}</Seat>
+                {seats.map((seat, index) =>
+                    <Seat isSelected={seat.isSelected} isAvailable={seat.isAvailable} onClick={() => updateSeats(index)} key={seat.id}>{seat.name}</Seat>
                 )}
             </Wrap>
             <Subtitle>
-                <Column align="center" >
-                    <Seat isAvailable={false}></Seat>
+                <Column>
+                    <Seat isSelected></Seat>
                     <p>Selecionado</p>
                 </Column>
-                <Column align="center" >
+                <Column>
                     <Seat isAvailable={true}></Seat>
                     <p>Disponível</p>
                 </Column>
-                <Column align="center" >
+                <Column>
                     <Seat isAvailable={false}></Seat>
                     <p>Indisponível</p>
                 </Column>

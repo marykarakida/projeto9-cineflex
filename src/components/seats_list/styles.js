@@ -17,8 +17,7 @@ export const Heading = styled.h2 `
 
 export const Column = styled(Container) `
     flex-direction: column;
-    align-items: ${props => props.align};
-    justify-content: ${props => props.justify};
+    align-items: center;
 `
 
 export const Wrap = styled(Container) `
@@ -46,11 +45,11 @@ export const Seat = styled.div `
     justify-content: center;
     align-items: center;
     margin: 4px 0;
-    border: 1px solid ${props => props.isAvailable ? "#808F9D" : "#F7C52B"};;
+    border: 1px solid ${props => props.isSelected ? "#1AAE9E" : props.isAvailable ? "#808F9D" : "#F7C52B"};
     border-radius: 12px;
     width: 26px;
     height: 26px;
-    background-color: ${props => props.isAvailable ? "#C3CFD9" : "#FBE192"};
+    background-color: ${props => props.isSelected ? "#8DD7CF" : props.isAvailable ? "#C3CFD9" : "#FBE192"};
     font-size: 11px;
     line-height: 13px;
     letter-spacing: 0.04em;
