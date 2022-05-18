@@ -12,6 +12,9 @@ export default function Seats() {
     const [movie, setMovie] = useState([]);
     const [day, setDay] = useState("");
     const [session, setSession] = useState("");
+    const [customer, setCustomer] = useState("");
+    const [CPF, setCPF] = useState("");
+    const [isRequestSent, setIsRequestSent] = useState(false)
     
 
     useEffect(() => {
@@ -43,10 +46,28 @@ export default function Seats() {
         setSeats(newSeats);
     }
 
+    function buySeats() {
+        if (!customer || !CPF) {
+            alert("Preencha todos os campos para poder comprar os assentos!");
+            return;
+        }
+
+        const request = {
+            ids: seats.filter(seat => seat.isSelected).map(seat => seat.id),
+            name: customer,
+            cpf: CPF
+        }
+
+        console.log(request)
+
+        const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request);
+        promise.then(() => setIsRequestSent(true));
+    }
+
     return (
         <>
             <SeatsList seats={seats} updateSeats={updateSeats} />
-            <Forms />
+            <Forms customer={customer} CPF={CPF} setCustomer={setCustomer} setCPF={setCPF} buySeats={buySeats} isRequestSent={isRequestSent} />
             <Footer movie={movie} day={day} session={session} />
         </>
     )
