@@ -5,17 +5,21 @@ import SeatsList from "../components/seats_list/SeatsList";
 import Forms from "../components/forms/Forms";
 import Footer from "../components/footer/Footer";
 
-export default function Seats() {
+export default function Seats(props) {
     const { idSessao } = useParams();
+    const { setReceipt } = props;
 
     const [seats, setSeats] = useState([]);
     const [movie, setMovie] = useState([]);
-    const [day, setDay] = useState("");
+    const [date, setDate] = useState("");
+    const [weekday, setWeekday] = useState("");
     const [session, setSession] = useState("");
     const [customer, setCustomer] = useState("");
     const [CPF, setCPF] = useState("");
 
-    const selectedSeats = seats.filter(seat => seat.isSelected).map(seat => seat.id);
+    const selectedSeatsIds = seats.filter(seat => seat.isSelected).map(seat => seat.id);
+    const selectedSeatsNames = seats.filter(seat => seat.isSelected).map(seat => seat.name);
+    
 
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
@@ -26,7 +30,8 @@ export default function Seats() {
 
             setSeats([...newSeats]);
             setMovie(movie);
-            setDay(day.weekday);
+            setDate(day.date);
+            setWeekday(day.weekday);
             setSession(name);
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,29 +53,36 @@ export default function Seats() {
 
     function buySeats() {
         const request = {
-            ids: selectedSeats,
+            ids: selectedSeatsIds,
             name: customer,
             cpf: CPF
         }
+        const receipt = {
+            movie: movie.title,
+            date: date,
+            session: session,
+            seats: selectedSeatsNames,
+            customer: customer,
+            cpf: CPF
+        }
 
-        if (!customer || !CPF || selectedSeats.length === 0) {
+        if (!customer || !CPF || selectedSeatsIds.length === 0) {
             alert("Preencha todos os campos para poder comprar os assentos!");
             return;
         }
 
-        console.log(request)
-
         axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request);
+        setReceipt(receipt);
     }
 
     return (
         <>
             <SeatsList seats={seats} updateSeats={updateSeats} />
-            {(!customer || !CPF || selectedSeats.length === 0)
+            {(!customer || !CPF || selectedSeatsIds.length === 0)
                 ? <Forms customer={customer} CPF={CPF} setCustomer={setCustomer} setCPF={setCPF} />
                 : <Forms customer={customer} CPF={CPF} setCustomer={setCustomer} setCPF={setCPF} buySeats={buySeats} />
             }
-            <Footer movie={movie} day={day} session={session} />
+            <Footer movie={movie} weekday={weekday} session={session} />
         </>
     )
 }

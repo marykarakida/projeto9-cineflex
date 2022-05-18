@@ -1,9 +1,11 @@
 import Receipt from "../components/receipt/Receipt"
 
-export default function Success() {
+export default function Success(props) {
+    const { receipt } = props;
+
     return (
         <>
-            <Receipt />
+            <Receipt receipt={receipt} />
         </>
     )
 }

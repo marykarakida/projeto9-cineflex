@@ -1,7 +1,7 @@
 import { MainContainer, Poster, Info } from "./styles.js";
 
 export default function Footer(props) {
-    const { movie, day, session } = props;
+    const { movie, weekday, session } = props;
 
     return (
         <MainContainer>
@@ -10,7 +10,7 @@ export default function Footer(props) {
             </Poster>
             <Info>
                 {movie.length !== 0 && <h2>{movie.title}</h2>}
-                {day && session && <h2>{`${day} - ${session}`}</h2>}
+                {weekday && session && <h2>{`${weekday} - ${session}`}</h2>}
             </Info>
         </MainContainer>
     )
