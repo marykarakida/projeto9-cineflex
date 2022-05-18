@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import { MainContainer, Heading, List, Day, Buttons, Button } from "./styles";
 
 export default function ShowTimeList(props) {
-    const { movie } = props;
+    const { days } = props;
 
     return (
         <MainContainer>
@@ -9,12 +10,14 @@ export default function ShowTimeList(props) {
                 Selecione o horário
             </Heading>
             <List>
-                {movie.days.map(day => 
+                {days.map(day => 
                     <Day key={day.id}>
                         <h3>{day.weekday} - {day.date}</h3>
                         <Buttons>
-                            {day.showtimes.map((time, index) => 
-                                <Button key={index}>{time.name}</Button>
+                            {day.showtimes.map(time => 
+                                <Link  to={`/assentos/${time.id}`} style={{ textDecoration: 'none' }} key={time.id}>
+                                    <Button>{time.name}</Button>
+                                </Link>
                             )}
                         </Buttons>
                     </Day>

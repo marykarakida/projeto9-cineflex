@@ -11,7 +11,7 @@ export default function MovieList(props) {
             </Heading>
             <List>
                 {movies.map(movie => 
-                    <Link key={movie.id} to={`/sessoes/${movie.id}`}>
+                    <Link to={`/sessoes/${movie.id}`} key={movie.id}>
                         <Poster >
                             <img src={movie.posterURL} alt={movie.title} />
                         </Poster>    
