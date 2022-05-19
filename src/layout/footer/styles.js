@@ -1,24 +1,30 @@
 import styled from "styled-components";
 
-export const MainContainer = styled.div `
+export const Container = styled.div`
     position: fixed;
     bottom: 0;
     display: flex;
     justify-content: center;
-    border: 1px solid #9EADBA;
-    padding: 14px 10px;
+    align-items: center;
     min-height: 118px;
     width: 100%;
-    background: #DFE6ED;
+    background-color: #DFE6ED;
 `
 
-export const Info = styled.div `
+export const MainContainer = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+`
+
+export const Info = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
 `
 
-export const Poster = styled.div `
+export const Poster = styled.div`
     margin-right: 14px;
     border-radius: 2px;
     padding: 8px;

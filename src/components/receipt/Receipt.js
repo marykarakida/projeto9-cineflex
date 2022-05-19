@@ -37,3 +37,5 @@ export default function Receipt(props) {
         </MainContainer>
     )
 }
+
+// RENDERIZAR INFORMACOES POR COMPRADOR E MOSTRAR QUAIS ASSENTOS ELE COMPROU

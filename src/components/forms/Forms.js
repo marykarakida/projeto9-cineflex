@@ -31,7 +31,7 @@ export default function Forms(props) {
                     </Column>
                     <Column align="flex-start" >
                         <h3>CPF do comprador:</h3>
-                        <input placeholder="Digite seu CPF..." value={customer.cpf} onChange={event => changeCustomerCpf(event, index)} ></input>
+                        <input placeholder="Digite seu CPF..." value={customer.cpf} maxLength={11} onChange={event => changeCustomerCpf(event, index)} ></input>
                     </Column>
                 </Costoumer>
             )}
@@ -43,3 +43,8 @@ export default function Forms(props) {
         </MainContainer>
     )
 }
+
+// FAZER COM QUE OS CONTAINERS DOS INPUTS APARECAM NA ORDEM DOS ASSENTOS
+// EX: SE USUARIO CLICAR NO ASSENTO 15 E 5 NESSA ORDEM, APARECER INPUTS DOO 5 E 15 NESSA ORDEM
+
+// EM VEZ DE CRIAR UMA CONDICAO QUE INDICA QUANDO O BOTAO VEM COM O LINK OU NAO, TALVEZ USAR O  NAVIGATE

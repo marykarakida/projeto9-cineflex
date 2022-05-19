@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import SeatsList from "../components/seats_list/SeatsList";
 import Forms from "../components/forms/Forms";
-import Footer from "../components/footer/Footer";
+import Footer from "../layout/footer/Footer";
 
 export default function Seats(props) {
     const { idSessao } = useParams();
