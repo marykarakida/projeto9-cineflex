@@ -10,7 +10,7 @@ export default function SeatsList(props) {
             </Heading>
             <Wrap>
                 {seats.map((seat, index) =>
-                    <Seat isSelected={seat.isSelected} isAvailable={seat.isAvailable} onClick={() => updateSeats(index)} key={seat.id}>{seat.name}</Seat>
+                    <Seat isSelected={seat.isSelected} isAvailable={seat.isAvailable} onClick={() => updateSeats(index, seat.name, seat.id)} key={seat.id}>{seat.name}</Seat>
                 )}
             </Wrap>
             <Subtitle>

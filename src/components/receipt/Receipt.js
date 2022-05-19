@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { MainContainer, Heading, Info, Button, Column } from "./styles"
 
 export default function Receipt(props) {
@@ -18,15 +19,17 @@ export default function Receipt(props) {
                             <p>{receipt.movie}</p>
                             <p>{receipt.date} {receipt.session}</p>
                         </Info>
-                        <Info>
-                            <h3>Ingressos</h3>
-                            {receipt.seats.map((seat, index) => <p key={index}>Assento {seat}</p>)}
-                        </Info>
-                        <Info>
-                            <h3>Comprador</h3>
-                            <p>{receipt.customer}</p>
-                            <p>{receipt.cpf}</p>
-                        </Info>
+                        {receipt.customers.map((customer, index) => 
+                            <Fragment key={index}>
+                                <Info>
+                                    <h3>Ingresso</h3>
+                                    <p>Assento {customer.seat}</p>
+                                    <h3>Comprador</h3>
+                                    <p>Nome: {customer.nome}</p>
+                                    <p>CPF: {customer.cpf}</p>
+                                </Info>
+                            </Fragment>
+                        )}
                     </Column>
                 </>
             }
