@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { Column, Costoumer, Button, MainContainer } from "./styles";
+import { Column, CostumerForms, Costoumer, Button, MainContainer } from "./styles";
 
 export default function Forms(props) {
     const { customers, setCustomers, buySeats } = props;
@@ -13,38 +12,31 @@ export default function Forms(props) {
     }
 
     function changeCustomerCpf(event, index) {
-        const newCpf = [...customers];
-        const cpf = newCpf[index];
-        cpf.cpf = event.target.value;
+        const newCustomers = [...customers];
+        const customer = newCustomers[index];
+        customer.cpf = event.target.value;
 
-        setCustomers(newCpf);
+        setCustomers(newCustomers);
     }
 
     return (
         <MainContainer>
-            {customers.map((customer, index) =>
-                <Costoumer key={index}>
-                    <Column align="flex-start" >
-                        <h3>Assento {customer.seat}</h3>
-                        <h3>Nome do comprador:</h3>
-                        <input placeholder="Digite seu nome..." value={customer.nome} onChange={event => changeCustomerName(event, index)}></input>
-                    </Column>
-                    <Column align="flex-start" >
-                        <h3>CPF do comprador:</h3>
-                        <input placeholder="Digite seu CPF..." value={customer.cpf} maxLength={11} onChange={event => changeCustomerCpf(event, index)} ></input>
-                    </Column>
-                </Costoumer>
-            )}
-
-            {buySeats
-                ? <Link to="/sucesso" style={{ textDecoration: 'none' }} ><Button onClick={buySeats} clickable >Reservar assento(s)</Button></Link>
-                : <Button>Reservar assento(s)</Button>
-            }
+            <CostumerForms onSubmit={buySeats}>
+                {customers.map((customer, index) =>
+                    <Costoumer key={index}>
+                        <Column>
+                            <h3 style={{fontWeight: 700}}>Assento {customer.seat}</h3>
+                            <h3>Nome do comprador:</h3>
+                            <input placeholder="Digite seu nome..." type="text" required value={customer.nome} onChange={event => changeCustomerName(event, index)}></input>
+                        </Column>
+                        <Column>
+                            <h3>CPF do comprador:</h3>
+                            <input placeholder="Digite seu CPF..." type="text" pattern="\d*" maxLength={11} minLength={11} required value={customer.cpf} onChange={event => changeCustomerCpf(event, index)} ></input>
+                        </Column>
+                    </Costoumer>
+                )}
+                <Button type="submit">Reservar assento(s)</Button>
+            </CostumerForms>
         </MainContainer>
     )
 }
-
-// FAZER COM QUE OS CONTAINERS DOS INPUTS APARECAM NA ORDEM DOS ASSENTOS
-// EX: SE USUARIO CLICAR NO ASSENTO 15 E 5 NESSA ORDEM, APARECER INPUTS DOO 5 E 15 NESSA ORDEM
-
-// EM VEZ DE CRIAR UMA CONDICAO QUE INDICA QUANDO O BOTAO VEM COM O LINK OU NAO, TALVEZ USAR O  NAVIGATE

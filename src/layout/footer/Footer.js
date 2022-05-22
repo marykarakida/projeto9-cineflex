@@ -7,10 +7,10 @@ export default function Footer(props) {
         <Container>
             <MainContainer>
                 <Poster>
-                    {movie.length !== 0 && <img src={movie.posterURL} alt={movie.title} />}
+                    {<img src={movie.posterURL} alt={movie.title} />}
                 </Poster>
                 <Info>
-                    {movie.length !== 0 && <h2>{movie.title}</h2>}
+                    {<h2>{movie.title}</h2>}
                     {weekday && session && <h2>{`${weekday} - ${session}`}</h2>}
                 </Info>
             </MainContainer>

@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 import MovieList from "../components/movie_list/MovieList";
 
-export default function Home() {
-
+export default function HomePage() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -12,8 +11,6 @@ export default function Home() {
     }, [])
 
     return (
-        <>
             <MovieList movies={movies} />
-        </>
     )
 }

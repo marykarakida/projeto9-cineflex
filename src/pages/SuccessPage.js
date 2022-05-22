@@ -1,11 +1,10 @@
+import { useLocation } from "react-router-dom"
 import Receipt from "../components/receipt/Receipt"
 
-export default function Success(props) {
-    const { receipt } = props;
+export default function SuccessPage() {
+    const location = useLocation()
 
     return (
-        <>
-            <Receipt receipt={receipt} />
-        </>
+            <Receipt receipt={location.state.receipt} />
     )
 }

@@ -48,4 +48,5 @@ export const Button = styled.div `
     line-height: 21px;
     letter-spacing: 0.02em;
     color: #FFFFFF;
+    cursor: pointer;
 `

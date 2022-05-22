@@ -1,41 +1,47 @@
 import { Fragment } from "react";
-import { MainContainer, Heading, Info, Button, Column } from "./styles"
+import { Link } from "react-router-dom";
+import { MainContainer, Heading, Info, Button, Column } from "./styles";
 
 export default function Receipt(props) {
     const { receipt } = props;
 
-    const isReceiptEmpty = Object.keys(receipt).length === 0;
+    function removeDuplicates(customers) {
+        const customersNames = customers.map(customer => ({nome: customer.nome, cpf: customer.cpf}));
+        const filtered = customersNames.filter((customer, index, array) => {
+            return array.map(cpf => cpf.cpf).indexOf(customer.cpf) === index;
+        })
+        return filtered;
+    }
+
+    let customers = removeDuplicates(receipt.customers);
 
     return (
         <MainContainer>
-            {!isReceiptEmpty &&
-                <>
-                    <Heading>
-                        Pedido feito <br />com sucesso!
-                    </Heading>
-                    <Column>
+            <Heading>
+                Pedido feito <br />com sucesso!
+            </Heading>
+            <Column>
+                <Info>
+                    <h3>Filme e sessão</h3>
+                    <p>{receipt.movie}</p>
+                    <p>{receipt.date} {receipt.session}</p>
+                </Info>
+                {customers.map((info, index) => 
+                    <Fragment key={index}>
                         <Info>
-                            <h3>Filme e sessão</h3>
-                            <p>{receipt.movie}</p>
-                            <p>{receipt.date} {receipt.session}</p>
+                            <h3>Ingresso(s)</h3>
+                            {receipt.customers.map((customer, index) => {
+                                if (customer.cpf === info.cpf) return <p key={index}>Assento {customer.seat}</p>
+                                return ""
+                            })}
+                            <h3>Comprador</h3>
+                            <p>Nome: {info.nome}</p>
+                            <p>CPF: {info.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</p>
                         </Info>
-                        {receipt.customers.map((customer, index) => 
-                            <Fragment key={index}>
-                                <Info>
-                                    <h3>Ingresso</h3>
-                                    <p>Assento {customer.seat}</p>
-                                    <h3>Comprador</h3>
-                                    <p>Nome: {customer.nome}</p>
-                                    <p>CPF: {customer.cpf}</p>
-                                </Info>
-                            </Fragment>
-                        )}
-                    </Column>
-                </>
-            }
-            <Button>Voltar para Home</Button>
+                    </Fragment>
+                )}
+            </Column>
+            <Link style={{textDecoration: "none"}} to="/"><Button>Voltar para Home</Button></Link>
         </MainContainer>
     )
 }
-
-// RENDERIZAR INFORMACOES POR COMPRADOR E MOSTRAR QUAIS ASSENTOS ELE COMPROU

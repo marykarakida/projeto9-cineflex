@@ -10,8 +10,14 @@ export const MainContainer = styled.div `
 
 export const Column = styled(Container) `
     flex-direction: column;
-    align-items: ${props => props.align};
-    justify-content: ${props => props.justify};
+    align-items:flex-start;
+`
+
+export const CostumerForms = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 `
 
 export const Costoumer = styled(Column) `
@@ -20,17 +26,17 @@ export const Costoumer = styled(Column) `
     margin-bottom: 58px;
 `
 
-export const Button = styled.div `
+export const Button = styled.button `
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 3px;
     width: 225px;
     height: 43px;
-    background-color: ${props => props.clickable ? "#E8833A" : "#808F9D" };
+    background-color: #E8833A;
     font-size: 18px;
     line-height: 21px;
     letter-spacing: 0.02em;
     color: #FFFFFF;
-    cursor: ${props => props.clickable ? "pointer" : "default" };
+    cursor: pointer;
 `

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import SeatsList from "../components/seats_list/SeatsList";
 import Forms from "../components/forms/Forms";
 import Footer from "../layout/footer/Footer";
 
-export default function Seats(props) {
+export default function SeatsPage() {
     const { idSessao } = useParams();
-    const { setReceipt } = props;
+    const navigate = useNavigate();
 
     const [customers, setCustomers] = useState([]);
     const [seats, setSeats] = useState([]);
@@ -15,13 +15,13 @@ export default function Seats(props) {
     const [date, setDate] = useState("");
     const [weekday, setWeekday] = useState("");
     const [session, setSession] = useState("");
-    
+
     useEffect(() => {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
-        promise.then(({data}) => {
+        promise.then(({ data }) => {
             const { seats, movie, day, name } = data;
 
-            const newSeats = seats.map(seat => ({...seat, "isSelected": false}));
+            const newSeats = seats.map(seat => ({ ...seat, "isSelected": false }));
 
             setSeats([...newSeats]);
             setMovie(movie);
@@ -33,15 +33,13 @@ export default function Seats(props) {
     }, [])
 
     function updateSeats(index, name, id) {
-        // COLOCAR WINDOWS.CONFIRM PARA PERGUNTAR PARA O USUARIO SE ELE REALMENTE QUER DESSELECIONAR LUGAR
-
         const newSeats = [...seats];
         const selectedSeat = newSeats[index];
 
         if (selectedSeat.isAvailable === false) {
             alert("Esse assento não está disponível");
             return;
-        } 
+        }
 
         if (selectedSeat.isSelected === true) {
             if (!window.confirm("Você realmente quer desmarcar esse assento?")) {
@@ -50,7 +48,17 @@ export default function Seats(props) {
             const newCustomers = customers.filter(customer => customer.idAssento !== selectedSeat.id);
             setCustomers(newCustomers);
         } else {
-            setCustomers([...customers, {seat: name, idAssento: id, nome: "", cpf: ""}]);
+            let insertPosition = customers.length;
+            for (let i = 0; i < customers.length; i++) {
+                if (selectedSeat.id < customers[i].idAssento) {
+                    insertPosition = i;
+                    break
+                }
+            }
+
+            const newCustomers = [...customers];
+            newCustomers.splice(insertPosition, 0, { seat: name, idAssento: id, nome: "", cpf: "" });
+            setCustomers(newCustomers);
         }
 
         if (selectedSeat.isAvailable === true) {
@@ -59,14 +67,15 @@ export default function Seats(props) {
         }
     }
 
-    function buySeats() {
+    function buySeats(event) {
         const selectedSeatsIds = seats.filter(seat => seat.isSelected).map(seat => seat.id);
 
+        if (selectedSeatsIds.length === 0) alert("Selecione pelo menos um assento.")
+        
         const request = {
-            ids: selectedSeatsIds, // ids dos assentos
+            ids: selectedSeatsIds, 
             compradores: customers.map(customer => ({ idAssento: customer.idAssento, nome: customer.nome, cpf: customer.cpf }))
         }
-
         const receipt = {
             movie: movie.title,
             date: date,
@@ -74,28 +83,17 @@ export default function Seats(props) {
             customers: customers
         }
 
-        axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request);
-        setReceipt(receipt);
-    }
-
-    function validateRequest(seats, customers) {
-        const selectedSeats = seats.filter(seat => seat.isSelected);
-        let validCustomers = customers.filter(customer => customer.nome !== "" && customer.cpf !== "");
-        validCustomers = validCustomers.filter(customer => customer.cpf.length === 11);
-        
-        if (customers.length !== validCustomers.length || selectedSeats.length === 0) {
-            return false;
-        }
-        return true;
+        const promise = axios.post("https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many", request);
+        promise.then(() => 
+            navigate("/sucesso", {state: {receipt: receipt}} )
+        )
+        event.preventDefault();
     }
 
     return (
         <>
             <SeatsList seats={seats} updateSeats={updateSeats} />
-            {(validateRequest(seats, customers))
-                ? <Forms customers={customers} setCustomers={setCustomers} buySeats={buySeats} />
-                : <Forms customers={customers} setCustomers={setCustomers} />
-            }
+            <Forms customers={customers} setCustomers={setCustomers} buySeats={buySeats} />
             <Footer movie={movie} weekday={weekday} session={session} />
         </>
     )
