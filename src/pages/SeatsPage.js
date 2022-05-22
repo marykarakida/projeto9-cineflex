@@ -68,9 +68,13 @@ export default function SeatsPage() {
     }
 
     function buySeats(event) {
+        event.preventDefault();
         const selectedSeatsIds = seats.filter(seat => seat.isSelected).map(seat => seat.id);
 
-        if (selectedSeatsIds.length === 0) alert("Selecione pelo menos um assento.")
+        if (selectedSeatsIds.length === 0) {
+            alert("Selecione pelo menos um assento.");
+            return;
+        }
         
         const request = {
             ids: selectedSeatsIds, 
@@ -87,7 +91,6 @@ export default function SeatsPage() {
         promise.then(() => 
             navigate("/sucesso", {state: {receipt: receipt}} )
         )
-        event.preventDefault();
     }
 
     return (

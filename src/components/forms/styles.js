@@ -30,6 +30,7 @@ export const Button = styled.button `
     display: flex;
     justify-content: center;
     align-items: center;
+    border-color: transparent;
     border-radius: 3px;
     width: 225px;
     height: 43px;
