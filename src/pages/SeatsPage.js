@@ -78,7 +78,7 @@ export default function SeatsPage() {
         
         const request = {
             ids: selectedSeatsIds, 
-            compradores: customers.map(customer => ({ idAssento: customer.idAssento, nome: customer.nome, cpf: customer.cpf }))
+            compradores: customers.map(customer => ({ idAssento: customer.idAssento, name: customer.nome, cpf: customer.cpf }))
         }
         const receipt = {
             movie: movie.title,
